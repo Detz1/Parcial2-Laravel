@@ -1,0 +1,50 @@
+@startuml biblioteca
+
+class Usuario {
+  +id: int
+  +nombre: string
+  +librosReservados: List<Libro>
+  +dejarResena(libro: Libro, textoResena: string)
+}
+
+class Libro {
+  +id: int
+  +nombre: string
+  +autor: Autor
+  +resenas: List<Resena>
+  +categorias: List<Categoria>
+}
+
+class Resena {
+  +id: int
+  +textoResena: string
+  +usuario: Usuario
+  +libro: Libro
+}
+
+class Autor {
+  +id: int
+  +nombre: string
+  +libros: List<Libro>
+}
+
+class Categoria {
+  +id: int
+  +nombre: string
+  +libros: List<Libro>
+}
+
+class LibroCategoria {
+  +libro: Libro
+  +categoria: Categoria
+}
+
+Usuario "1" -- "0..*" Libro : tiene
+Usuario "0..*" -- "0..*" Resena : deja
+Libro "1" -- "1" Autor : pertenece a
+Libro "0..*" -- "0..*" Resena: tiene
+Libro "0..*" -- "0..*" Categoria
+Libro "1" -- "1" LibroCategoria
+Categoria "1" -- "1" LibroCategoria : categorizado en
+
+@enduml
